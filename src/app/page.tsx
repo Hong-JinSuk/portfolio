@@ -1,11 +1,10 @@
 'use client';
 
-import { ThemeSwitch } from '@/components/ui/theme-switch';
-
 export default function Page() {
   return (
-    <>
-      <ThemeSwitch />
-    </>
+    <div className="w-full h-full bg-background">
+      <aside></aside>
+      <main></main>
+    </div>
   );
 }

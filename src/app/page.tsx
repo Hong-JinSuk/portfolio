@@ -29,7 +29,7 @@ const styles = {
 };
 
 const contents = {
-  aboutMe: 'dsfjisdfs sdoifjsdiof sdfiojds\n sdifjdsoi \n\n\n\n',
+  aboutMe: 'About Me!! \n\n sdoifjsdiof sdfiojds\n sdifjdsoi \n\n\n\n fdsjif',
 };
 
 const navigationItems = [
@@ -60,6 +60,7 @@ export default function Page() {
         <ScrollspyNavigation
           scrollAreaRef={scrollAreaRef}
           navigationItems={navigationItems}
+          className="py-16 px-10"
         />
         <section className="w-full flex justify-between items-center mt-auto p-6">
           <div className="flex">
@@ -96,18 +97,15 @@ export default function Page() {
         <ScrollArea className="h-full" id="scrollArea" ref={scrollAreaRef}>
           <div>
             <div className="pt-24" id="top"></div>
-            <div className="h-96" id="about-me">
-              About Me
+            <div className="flex flex-col h-96" id="about-me">
               <p className="whitespace-pre-line">{contents.aboutMe}</p>
               <Link
                 href={'/my'}
-                className="flex max-w-[200px] text-lg font-semibold hover:underline hover:underline-offset-[2px] dark:decoration-green-400 decoration-1 space-x-2 group"
+                className="flex max-w-[200px] mt-auto text-lg font-semibold hover:underline hover:underline-offset-[2px] dark:decoration-green-400 decoration-1 space-x-2 group"
               >
                 <span className="">View Full About Me</span>
                 <div className="relative w-6 h-6">
-                  {/* Default Arrow */}
                   <ArrowBigRight className="absolute top-0 left-0 transition-all duration-500 opacity-100 scale-100 group-hover:opacity-0 group-hover:scale-75" />
-                  {/* Hover Arrow */}
                   <ArrowBigRightDash className="absolute -top-1 -left-1 size-8 transition-all duration-500 opacity-0 scale-75 group-hover:opacity-100 group-hover:scale-100" />
                 </div>
               </Link>
@@ -115,14 +113,11 @@ export default function Page() {
             <div className="h-96 pt-20" id="history">
               History
             </div>
-            <div
-              className="flex flex-col justify-between h-96 pt-20"
-              id="projects"
-            >
+            <div className="flex flex-col h-96 pt-20" id="projects">
               Projects
               <Link
                 href={'/projects'}
-                className="flex max-w-[190px] text-lg font-semibold hover:underline hover:underline-offset-[2px] dark:decoration-green-400 decoration-1 space-x-2 group"
+                className="flex max-w-[190px] mt-auto text-lg font-semibold hover:underline hover:underline-offset-[2px] dark:decoration-green-400 decoration-1 space-x-2 group"
               >
                 <span className="">View Full Projects</span>
                 <div className="relative w-6 h-6">

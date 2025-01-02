@@ -1,16 +1,21 @@
 import { debounce } from 'lodash';
-import { Minus } from 'lucide-react';
 import { useCallback, useEffect, useState } from 'react';
 
 type Props = {
   scrollAreaRef: React.RefObject<HTMLDivElement | null>;
   navigationItems: any[];
+  className?: string;
 };
 
-export function ScrollspyNavigation({ scrollAreaRef, navigationItems }: Props) {
+export function ScrollspyNavigation({
+  scrollAreaRef,
+  navigationItems,
+  className,
+}: Props) {
   const [centerContentId, setCenterContentId] = useState<string>(
     navigationItems[0].id
   );
+  const [hoveredId, setHoveredId] = useState(null);
 
   const findCenterContent = useCallback(() => {
     const scrollElement = scrollAreaRef.current?.querySelector(
@@ -80,30 +85,38 @@ export function ScrollspyNavigation({ scrollAreaRef, navigationItems }: Props) {
   };
 
   return (
-    <nav id="navbar" className="w-full">
-      {navigationItems.map((item, index) => (
-        <div
-          key={item.id}
-          className={`flex space-x-2 cursor-pointer`}
-          onClick={(e) => {
-            e.preventDefault();
-            onNavigate(item.id);
-          }}
-        >
-          <Minus
-            className={`${
-              centerContentId === item.id ? 'opacity-100' : 'opacity-30'
-            } `}
-          />
-          <span
-            className={`${
-              centerContentId === item.id ? 'opacity-100' : 'opacity-30'
-            }`}
+    <div className={`${className}`}>
+      <nav id="navbar" className={`max-w-44`}>
+        {navigationItems.map((item, index) => (
+          <div
+            key={item.id}
+            className={`flex items-center space-x-8 cursor-pointer`}
+            onClick={(e) => {
+              e.preventDefault();
+              onNavigate(item.id);
+            }}
+            onMouseEnter={() => setHoveredId(item.id)}
+            onMouseLeave={() => setHoveredId(null)}
           >
-            {item.label}
-          </span>
-        </div>
-      ))}
-    </nav>
+            <div
+              className={`${
+                centerContentId === item.id || hoveredId === item.id
+                  ? 'opacity-100 w-12 h-[1px] dark:bg-white bg-black'
+                  : 'opacity-30 w-4 h-[1px] dark:bg-white bg-black'
+              } transition-all duration-500`}
+            ></div>
+            <span
+              className={`${
+                centerContentId === item.id || hoveredId === item.id
+                  ? 'opacity-100'
+                  : 'opacity-30'
+              } transition-all duration-700 text-center py-2`}
+            >
+              {item.label}
+            </span>
+          </div>
+        ))}
+      </nav>
+    </div>
   );
 }

@@ -2,10 +2,17 @@
 
 import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
+import { Moon, Sun } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import { useEffect, useState } from 'react';
 
-export function ThemeSwitch() {
+type Props = {
+  useIcons?: boolean;
+  className?: string;
+  iconSize?: number;
+};
+
+export function ThemeSwitch({ useIcons = false, className, iconSize }: Props) {
   const { theme, setTheme } = useTheme();
   const [isInitialized, setIsInitialized] = useState(false);
   const [isDark, setIsDark] = useState(false);
@@ -25,18 +32,49 @@ export function ThemeSwitch() {
   const handleThemeChange = (checked: boolean) => {
     setIsDark(checked);
 
-    // 애니메이션 효과를 위한 테마 업데이트 지연
     setTimeout(() => {
       setTheme(checked ? 'dark' : 'light');
     }, 300);
+  };
+
+  const onClickTheme = () => {
+    setIsDark((prev) => {
+      const nextTheme = !prev ? 'dark' : 'light';
+      setTheme(nextTheme);
+      return !prev;
+    });
   };
 
   if (!isInitialized) return null;
 
   return (
     <div className="flex items-center space-x-2">
-      <Switch id="theme" checked={isDark} onCheckedChange={handleThemeChange} />
-      <Label htmlFor="theme">{isDark ? 'Dark' : 'Light'}</Label>
+      {useIcons ? (
+        <>
+          {isDark ? (
+            <Moon
+              className={`${className} transition-colors duration-300`}
+              onClick={onClickTheme}
+              size={iconSize}
+            />
+          ) : (
+            <Sun
+              className={`${className} transition-colors duration-300`}
+              onClick={onClickTheme}
+              size={iconSize}
+            />
+          )}
+        </>
+      ) : (
+        <>
+          <Switch
+            id="theme"
+            checked={isDark}
+            onCheckedChange={handleThemeChange}
+          />
+          <Label htmlFor="theme">{isDark ? 'Dark' : 'Light'}</Label>
+        </>
+      )}
     </div>
   );
 }

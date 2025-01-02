@@ -1,10 +1,10 @@
 import { ThemeProvider } from '@/components/themes-provider';
 import { Avatar, AvatarImage } from '@/components/ui/avatar';
-import { Menubar, MenubarMenu, MenubarTrigger } from '@/components/ui/menubar';
+import Navigator from '@/components/ui/navigator';
+import { ScrollArea } from '@/components/ui/scroll-area';
 import { ThemeSwitch } from '@/components/ui/theme-switch';
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
-import Link from 'next/link';
 import './globals.css';
 
 const geistSans = Geist({
@@ -51,24 +51,27 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <div className="w-full h-screen">
-            <div className="mx-auto w-full h-full max-w-screen-xl px-6 pb-32 pt-12 md:px-12 lg:max-w-6xl lg:py-0">
-              <header className="flex items-center justify-between w-full px-5 h-12 bg-slate-200 pt-8">
-                <Avatar>
-                  <AvatarImage src="https://github.com/shadcn.png" />
-                </Avatar>
-                <Menubar>
-                  {menuItems.map((item, index) => (
-                    <MenubarMenu key={index}>
-                      <MenubarTrigger>
-                        <Link href={`${item.value}`}>{item.label}</Link>
-                      </MenubarTrigger>
-                    </MenubarMenu>
-                  ))}
-                </Menubar>
-                <ThemeSwitch />
-              </header>
-              {children}
-            </div>
+            <ScrollArea className="w-full h-full">
+              <div className="h-full flex flex-col max-w-[1220px] mx-auto bg-background border">
+                <header className="absolute top-3 left-1/2 transform -translate-x-1/2 w-full max-w-[1220px] flex bg-transparent px-20 py-2">
+                  <div className="flex-grow justify-start">
+                    <Avatar>
+                      <AvatarImage
+                        src="https://github.com/shadcn.png"
+                        alt="@shadcn"
+                      />
+                    </Avatar>
+                  </div>
+                  <div className="flex-grow flex justify-center">
+                    <Navigator />
+                  </div>
+                  <div className="flex-grow flex justify-end">
+                    <ThemeSwitch />
+                  </div>
+                </header>
+                <div className="flex-grow h-full">{children}</div>
+              </div>
+            </ScrollArea>
           </div>
         </ThemeProvider>
       </body>

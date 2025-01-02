@@ -7,10 +7,11 @@ import {
   HoverCardTrigger,
 } from '@/components/ui/hover-card';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { ScrollSpy } from '@/components/ui/scroll-spy';
+import { ScrollspyNavigation } from '@/components/ui/scrollspy-navigation';
 import { ThemeSwitch } from '@/components/ui/theme-switch';
-import { FireExtinguisher, Github, Instagram, Send } from 'lucide-react';
-import { useEffect, useRef, useState } from 'react';
+import { Atom, Github, Instagram, Leaf, Send } from 'lucide-react';
+import Link from 'next/link';
+import { useRef } from 'react';
 
 const styles = {
   iconSize: 45,
@@ -20,42 +21,17 @@ const styles = {
 };
 
 export default function Page() {
-  const [activeSection, setActiveSection] = useState('about');
-  const sectionsRef = useRef([]);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const id = entry.target.id;
-            setActiveSection(id);
-          }
-        });
-      },
-      { threshold: 0.6 } // 60% 이상 보일 때 감지
-    );
-    sectionsRef.current.forEach((section) => observer.observe(section));
-
-    return () => {
-      sectionsRef.current.forEach((section) => observer.unobserve(section));
-    };
-  }, []);
-
-  const onNavigate = (id: string) => {
-    const section = document.getElementById(id);
-    if (section) {
-      section.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-  };
+  const scrollAreaRef = useRef<HTMLDivElement>(null);
 
   return (
     <div className="flex w-full h-full bg-background overflow-hidden">
       <aside className="flex flex-col w-[80%] h-full border pt-24">
         <section>
-          <h1 className="text-5xl">Title</h1>
-          <h3 className="flex py-3">
-            <span className="text-xl">Sub Title</span> <FireExtinguisher />
+          <h1 className="text-5xl">Hong-JinSuk</h1>
+          <h3 className="flex py-3 space-x-0.5">
+            <span className="text-xl pr-1">Full-Stack Software Engineer</span>
+            <Leaf className="text-white bg-green-500 rounded-full" />
+            <Atom className="text-[#62D3F5] rounded-full dark:text-[#5AC8E5]" />
           </h3>
           <p className={`${styles.textClassName}`}>안녕하세요오오용가리</p>
           <p className={`${styles.textClassName}`}>안녕하세요오오용가리</p>
@@ -63,7 +39,7 @@ export default function Page() {
           <p className={`${styles.textClassName}`}>안녕하세요오오용가리</p>
           <p className={`${styles.textClassName}`}>안녕하세요오오용가리</p>
         </section>
-        <ScrollSpy onNavigate={onNavigate} />
+        <ScrollspyNavigation scrollAreaRef={scrollAreaRef} />
         <section className="w-full flex justify-between items-center mt-auto p-6">
           <div className="flex">
             <Github
@@ -96,22 +72,32 @@ export default function Page() {
         </section>
       </aside>
       <main className="w-full border">
-        <ScrollArea className="h-full">
-          <div className="pt-24" id="top"></div>
-          <div className="h-52">fsdfjndisofjodsifisdofjoisd</div>
-          <div className="h-52">fsdfjndisofjodsifisdofjoisd</div>
-          <div className="h-52">fsdfjndisofjodsifisdofjoisd</div>
-          <div className="h-52">fsdfjndisofjodsifisdofjoisd</div>
-          <div className="h-52">fsdfjndisofjodsifisdofjoisd</div>
-          <div className="h-52">fsdfjndisofjodsifisdofjoisd</div>
-          <div className="h-52">fsdfjndisofjodsifisdofjoisd</div>
-          <div className="h-52">fsdfjndisofjodsifisdofjoisd</div>
-          <div className="h-52">fsdfjndisofjodsifisdofjoisd</div>
-          <div className="h-52">fsdfjndisofjodsifisdofjoisd</div>
-          <div className="h-52">fsdfjndisofjodsifisdofjoisd</div>
-          <div className="h-52">fsdfjndisofjodsifisdofjoisd</div>
-          <div className="h-52">fsdfjndisofjodsifisdofjoisd</div>
-          <div className="h-52">fsdfjndisofjodsifisdofjoisd</div>
+        <ScrollArea className="h-full" id="scrollArea" ref={scrollAreaRef}>
+          <div>
+            <div className="pt-24" id="top"></div>
+            <div className="h-96" id="about-me">
+              About Me
+              <span>content</span>
+            </div>
+            <div className="h-96 pt-20" id="history">
+              History
+            </div>
+            <div
+              className="flex flex-col justify-between h-96 pt-20"
+              id="projects"
+            >
+              Projects
+              <Link
+                href={'/projects'}
+                className="text-xl font-semibold hover:underline hover:underline-offset-3"
+              >
+                to projects
+              </Link>
+            </div>
+            <div className="h-96 pt-20" id="skills">
+              Skills
+            </div>
+          </div>
         </ScrollArea>
       </main>
     </div>

@@ -9,7 +9,15 @@ import {
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { ScrollspyNavigation } from '@/components/ui/scrollspy-navigation';
 import { ThemeSwitch } from '@/components/ui/theme-switch';
-import { Atom, Github, Instagram, Leaf, Send } from 'lucide-react';
+import {
+  ArrowBigRight,
+  ArrowBigRightDash,
+  Atom,
+  Github,
+  Instagram,
+  Leaf,
+  Send,
+} from 'lucide-react';
 import Link from 'next/link';
 import { useRef } from 'react';
 
@@ -19,6 +27,17 @@ const styles = {
     'p-2 opacity-70 hover:opacity-100 hover:cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-700 rounded-lg transition-colors duration-200',
   textClassName: 'opacity-70',
 };
+
+const contents = {
+  aboutMe: 'dsfjisdfs sdoifjsdiof sdfiojds\n sdifjdsoi \n\n\n\n',
+};
+
+const navigationItems = [
+  { id: 'about-me', label: 'About me' },
+  { id: 'history', label: 'History' },
+  { id: 'projects', label: 'Projects' },
+  { id: 'skills', label: 'Skills' },
+];
 
 export default function Page() {
   const scrollAreaRef = useRef<HTMLDivElement>(null);
@@ -37,9 +56,11 @@ export default function Page() {
           <p className={`${styles.textClassName}`}>안녕하세요오오용가리</p>
           <p className={`${styles.textClassName}`}>안녕하세요오오용가리</p>
           <p className={`${styles.textClassName}`}>안녕하세요오오용가리</p>
-          <p className={`${styles.textClassName}`}>안녕하세요오오용가리</p>
         </section>
-        <ScrollspyNavigation scrollAreaRef={scrollAreaRef} />
+        <ScrollspyNavigation
+          scrollAreaRef={scrollAreaRef}
+          navigationItems={navigationItems}
+        />
         <section className="w-full flex justify-between items-center mt-auto p-6">
           <div className="flex">
             <Github
@@ -77,7 +98,19 @@ export default function Page() {
             <div className="pt-24" id="top"></div>
             <div className="h-96" id="about-me">
               About Me
-              <span>content</span>
+              <p className="whitespace-pre-line">{contents.aboutMe}</p>
+              <Link
+                href={'/my'}
+                className="flex max-w-[200px] text-lg font-semibold hover:underline hover:underline-offset-[2px] dark:decoration-green-400 decoration-1 space-x-2 group"
+              >
+                <span className="">View Full About Me</span>
+                <div className="relative w-6 h-6">
+                  {/* Default Arrow */}
+                  <ArrowBigRight className="absolute top-0 left-0 transition-all duration-500 opacity-100 scale-100 group-hover:opacity-0 group-hover:scale-75" />
+                  {/* Hover Arrow */}
+                  <ArrowBigRightDash className="absolute -top-1 -left-1 size-8 transition-all duration-500 opacity-0 scale-75 group-hover:opacity-100 group-hover:scale-100" />
+                </div>
+              </Link>
             </div>
             <div className="h-96 pt-20" id="history">
               History
@@ -89,9 +122,15 @@ export default function Page() {
               Projects
               <Link
                 href={'/projects'}
-                className="text-xl font-semibold hover:underline hover:underline-offset-3"
+                className="flex max-w-[190px] text-lg font-semibold hover:underline hover:underline-offset-[2px] dark:decoration-green-400 decoration-1 space-x-2 group"
               >
-                to projects
+                <span className="">View Full Projects</span>
+                <div className="relative w-6 h-6">
+                  {/* Default Arrow */}
+                  <ArrowBigRight className="absolute top-0 left-0 transition-all duration-500 opacity-100 scale-100 group-hover:opacity-0 group-hover:scale-75" />
+                  {/* Hover Arrow */}
+                  <ArrowBigRightDash className="absolute -top-1 -left-1 size-8 transition-all duration-500 opacity-0 scale-75 group-hover:opacity-100 group-hover:scale-100" />
+                </div>
               </Link>
             </div>
             <div className="h-96 pt-20" id="skills">

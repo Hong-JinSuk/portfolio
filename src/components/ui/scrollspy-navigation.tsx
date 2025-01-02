@@ -2,19 +2,15 @@ import { debounce } from 'lodash';
 import { Minus } from 'lucide-react';
 import { useCallback, useEffect, useState } from 'react';
 
-const navigationItems = [
-  { id: 'about-me', label: 'About me' },
-  { id: 'history', label: 'History' },
-  { id: 'projects', label: 'Projects' },
-  { id: 'skills', label: 'Skills' },
-];
-
 type Props = {
   scrollAreaRef: React.RefObject<HTMLDivElement | null>;
+  navigationItems: any[];
 };
 
-export function ScrollspyNavigation({ scrollAreaRef }: Props) {
-  const [centerContentId, setCenterContentId] = useState<string | null>(null);
+export function ScrollspyNavigation({ scrollAreaRef, navigationItems }: Props) {
+  const [centerContentId, setCenterContentId] = useState<string>(
+    navigationItems[0].id
+  );
 
   const findCenterContent = useCallback(() => {
     const scrollElement = scrollAreaRef.current?.querySelector(

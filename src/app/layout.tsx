@@ -36,33 +36,8 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-<<<<<<< HEAD
-          <div className="w-full h-screen">
-            <ScrollArea className="w-full h-full">
-              <div className="h-full flex flex-col max-w-[1220px] mx-auto bg-background border">
-                <header className="absolute top-3 left-1/2 transform -translate-x-1/2 w-full max-w-[1220px] flex bg-transparent px-20 py-2">
-                  <div className="flex-grow justify-start">
-                    <Avatar>
-                      <AvatarImage
-                        src="https://github.com/shadcn.png"
-                        alt="@shadcn"
-                      />
-                    </Avatar>
-                  </div>
-                  <div className="flex-grow flex justify-center">
-                    <Navigator />
-                  </div>
-                  <div className="flex-grow flex justify-end">
-                    <ThemeSwitch />
-                  </div>
-                </header>
-                <div className="flex-grow h-full">{children}</div>
-              </div>
-            </ScrollArea>
-=======
           <div className="mx-auto w-full h-full max-w-screen-xl px-6 pb-32 pt-12 md:px-12 lg:max-w-6xl lg:py-0">
             {children}
->>>>>>> 73ea7dfb1f334b6cad18d59cfc30f4981c9ffd45
           </div>
         </ThemeProvider>
       </body>
